@@ -9,7 +9,6 @@
     border: 2px dashed red;
     
     .container-header{
-        border: 2px dashed orange;
         display: grid;
         grid-template-columns: 2fr 4fr 2fr;
         grid-column-gap: 1em;
@@ -22,18 +21,8 @@
             border: 2px dashed purple;
         }
 
-        h4{
-            border: 3px dotted green;
-            display: inline;   
-        }
-
-        h5{
-            border: 1px dotted red;
-            display: inline;
-        }
-
         .user-specs{
-            border: 1px dotted purple;
+            border: 2px dashed purple;
 
             span{
                 float: right;

@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from './test/components/navigation/navigation.component';
-import UserLogon from './test/components/authentication/authentication.component';
-import HomePage from './test/home-page';
+import Navigation from './components/navigation/navigation.component';
+import UserLogon from './components/authentication/authentication.component';
+import HomePage from './components/home/home-page.component';
 
 function App() {
   return (
