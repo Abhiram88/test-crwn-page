@@ -1,5 +1,21 @@
 .auth-container{
     display: grid;
-    grid-template-rows: 2fr 8fr 2fr;
     border: 1px dotted green;
+    
+    .auth-login{
+        border: 1px dotted red;
+        height: 500px;
+
+            .login-info{
+                border: 1px dotted orange;  
+                width: 40%;
+                margin: 0 auto;
+                margin-top: 80px;
+            }
+            .signup{
+                border: 1px dotted orange;
+                margin-left: 650px;
+                margin-top: 300px;
+            }  
+    }
 }
