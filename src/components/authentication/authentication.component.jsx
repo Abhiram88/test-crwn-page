@@ -51,30 +51,37 @@ const UserLogon = () => {
         <div className="login-info">
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Enter email"
                 onChange={saveEmail}
               />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
                 onChange={savePassword}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={verifyUserHandler}>
-              Submit
+            <Button
+              className="submit"
+              variant="primary"
+              type="submit"
+              onClick={verifyUserHandler}
+            >
+              Log In
+            </Button>
+            <div className="forgot-password">Forgotten password?</div>
+            <hr className="divider"></hr>
+            <Button
+              className="new-account"
+              variant="success"
+              type="submit"
+              onClick={verifyUserHandler}
+            >
+              Create New Account
             </Button>
           </Form>
         </div>

@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import "./navigation.styles.scss";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, Navigate } from "react-router-dom";
 import { Fragment } from "react";
 
 const Navigation = () => {
@@ -9,9 +9,11 @@ const Navigation = () => {
       <div className="container-main">
         <div className="container-header">
           <div className="container-logo">
-            <span>
-              <h4>Logo</h4>
-            </span>
+            <Link to="/">
+              <span>
+                <h4>Logo</h4>
+              </span>
+            </Link>
           </div>
 
           <div className="navigation-controller">
@@ -23,7 +25,9 @@ const Navigation = () => {
           <div className="user-specs">
             <div className="login-status">
               <span>
-                <Button variant="link">Login/SignUp</Button>
+                <Link to="/logon">
+                  <Button variant="link">Login/SignUp</Button>
+                </Link>
               </span>
             </div>
           </div>

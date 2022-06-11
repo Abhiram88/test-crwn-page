@@ -1,21 +1,48 @@
             
     .auth-container{
         display: grid;
-        height: 600px;       
+        height: 600px;   
+        border: 1px dotted red;
 
     .auth-login{
-        border: 1px dotted red;
-        height: auto;        
+        height: 330px;     
+        width: 400px;
+        margin: 80px 0 100px 650px;
+       // background-image: url('../../../public/assets/Website-Background.jpg');           
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
 
         .login-info{
-            border: 1px dotted orange;  
-            width: 40%;
-            margin: 0 auto;
+            width: 26%;
             margin-top: 80px;
-            position: relative;
+            position: absolute;
+            margin-left: 20px;
+            margin-top: 40px;
+            font-weight:500;
+            
+            .submit{
+                width: 100%;
+            }
+
+            .forgot-password{
+                color: #6282F2;
+                text-align: center;
+                margin-top: 15px;
+            }
+
+            .divider{
+                border-bottom: 1px #dadde1;
+                
+            }
+
+            .new-account{
+                color: white;
+                background-color: #36A420;
+                margin-left: 90px;
+            }
         }
         .signup{
-            border: 1px dotted orange;
+
             margin-left: 650px;
             margin-top: 300px;
         }  
