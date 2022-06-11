@@ -4,6 +4,7 @@ import Navigation from './components/navigation/navigation.component';
 import UserLogon from './components/authentication/authentication.component';
 import HomePage from './components/home/home-page.component';
 import UserProfile from './components/user-profile/user-profile.component';
+//import logo from '../public/assets/Website-Background.jpg'
 
 const App = () => {
   return (

@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 const UserProfile = () => {
   const { currentUser, userEmail } = useContext(UserContext);
-  console.log(currentUser);
+  console.log(useContext(UserContext));
   return (
     <div>
       <p>User: {currentUser}</p>

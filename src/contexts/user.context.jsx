@@ -1,34 +1,24 @@
 import { createContext, useState, useEffect } from "react";
 
-export const UserContext = createContext({
-  currentUser: null,
-  setCurrentUser: () => null,
-  userEmail: null,
-  setUserEmail: () => null,
-});
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
 
+  useEffect(() => {
+    console.log("User", currentUser);
+    console.log("Email", userEmail);
+  }, [currentUser, userEmail]);
+
   const setUser = (user) => {
-    console.log("user contxt");
-    console.log("before", currentUser);
     setCurrentUser(user);
-    console.log("after", currentUser);
+    //    console.log({ currentUser, user });
   };
 
   const setEmail = (email) => {
-    console.log("user contxt");
-    console.log("before", userEmail);
     setUserEmail(email);
-    console.log("after", userEmail);
   };
-
-  // useEffect(() => {
-  //   setUser();
-  //   setEmail();
-  // }, []);
 
   const value = { setUser, setEmail, currentUser, userEmail };
 

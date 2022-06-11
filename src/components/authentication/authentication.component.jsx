@@ -11,19 +11,6 @@ const UserLogon = () => {
   const [emailAddr, setEmailAddr] = useState("");
   const [password, setPassword] = useState("");
 
-  // useEffect(() => {
-  //   saveEmail();
-  //   savePassword();
-  // }, [emailAddr, password]);
-
-  const updateFormData = () => {
-    setEmailAddr(emailAddr);
-    setPassword(password);
-    console.log("updated");
-    console.log(emailAddr);
-    console.log(password);
-  };
-
   const saveEmail = (event) => {
     setEmailAddr(event.target.value);
     //console.log(emailAddr);
@@ -36,7 +23,6 @@ const UserLogon = () => {
 
   const verifyUserHandler = (event) => {
     event.preventDefault();
-    updateFormData();
     const baseURL = `http://localhost:4000/verify_user?email=${emailAddr}&password=${password}`;
 
     axios
@@ -47,8 +33,7 @@ const UserLogon = () => {
           console.log("user verified");
           var email = response.data[0];
           var name = response.data[1];
-          console.log();
-          console.log(response.data[1]);
+
           setEmail(email);
           setUser(name);
         } else {

@@ -1,21 +1,23 @@
-.auth-container{
-    display: grid;
-    border: 1px dotted green;
-    
+            
+    .auth-container{
+        display: grid;
+        height: 600px;       
+
     .auth-login{
         border: 1px dotted red;
-        height: 500px;
+        height: auto;        
 
-            .login-info{
-                border: 1px dotted orange;  
-                width: 40%;
-                margin: 0 auto;
-                margin-top: 80px;
-            }
-            .signup{
-                border: 1px dotted orange;
-                margin-left: 650px;
-                margin-top: 300px;
-            }  
+        .login-info{
+            border: 1px dotted orange;  
+            width: 40%;
+            margin: 0 auto;
+            margin-top: 80px;
+            position: relative;
+        }
+        .signup{
+            border: 1px dotted orange;
+            margin-left: 650px;
+            margin-top: 300px;
+        }  
     }
 }
