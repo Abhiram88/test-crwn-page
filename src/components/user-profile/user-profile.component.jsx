@@ -13,8 +13,8 @@ const UserProfile = () => {
       <div className="user-info">
         <img src={profile_pic} alt="profile_pic" />
         <div className="user-details">
-          <p className="name">Abhiram</p>
-          <p className="friends">22 friends</p>
+          <p className="name">{currentUser}</p>
+          <p className="friends">{userEmail}</p>
         </div>
       </div>
 

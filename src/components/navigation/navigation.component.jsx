@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import "./navigation.styles.scss";
 import { Link, Outlet, Navigate } from "react-router-dom";
 import { Fragment } from "react";
+import logo from "../../assets/react.png";
 
 const Navigation = () => {
   return (
@@ -11,7 +12,7 @@ const Navigation = () => {
           <div className="container-logo">
             <Link to="/">
               <span>
-                <h4>Logo</h4>
+                <img className="logo" src={logo} alt="logo" />
               </span>
             </Link>
           </div>

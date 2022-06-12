@@ -1,15 +1,24 @@
 import Navigation from "../navigation/navigation.component";
 import { Button, InputGroup, Form } from "react-bootstrap";
-import { UserContext, setUser, setEmail } from "../../contexts/user.context";
+import {
+  UserContext,
+  setUser,
+  setEmail,
+  saveToken,
+} from "../../contexts/user.context";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import "./authentication.styles.scss";
 
 const UserLogon = () => {
-  const { setUser, setEmail } = useContext(UserContext);
+  const { setUser, setEmail, saveToken } = useContext(UserContext);
   const [emailAddr, setEmailAddr] = useState("");
   const [password, setPassword] = useState("");
+
+  // useEffect(() => {
+  //   console.log("token", token);
+  // }, [token]);
 
   const saveEmail = (event) => {
     setEmailAddr(event.target.value);
@@ -21,19 +30,23 @@ const UserLogon = () => {
     //console.log(password);
   };
 
-  const verifyUserHandler = (event) => {
+  const verifyUserHandler = async (event) => {
     event.preventDefault();
     const baseURL = `http://localhost:4000/verify_user?email=${emailAddr}&password=${password}`;
 
-    axios
+    await axios
       .post(baseURL)
       .then((response) => {
         //console.log("User verified");
         if (response.data[2] === "verified") {
           console.log("user verified");
+
           var email = response.data[0];
           var name = response.data[1];
+          var tokenData = response.data[3];
+          //console.log(tokenData);
 
+          saveToken(tokenData);
           setEmail(email);
           setUser(name);
         } else {

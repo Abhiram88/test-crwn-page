@@ -16,16 +16,26 @@
     
     .container-header{
         display: grid;
-        margin-top: 15px;
         grid-template-columns: 4fr 23fr 3fr;
         grid-column-gap: 1em;
+        background-color: #FFFFFF;
+        color: #1877F2;
 
         .container-logo{
             border: 2px dashed purple; 
         }
 
+        img{
+            height: 60px;
+            width: 130px;
+        }
+
         .navigation-controller{
             border: 2px dashed purple;
+
+            .navigation-dropdowns{
+                margin: 20px 0 0 0;
+            }
         }
 
         .user-specs{
