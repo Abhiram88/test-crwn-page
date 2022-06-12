@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [token, setToken] = useState("");
+  const [isLoggedIn, setLoginStatus] = useState(false);
 
   useEffect(() => {
     console.log("User", currentUser);
@@ -31,7 +32,20 @@ export const UserProvider = ({ children }) => {
     setUserEmail(email);
   };
 
-  const value = { setUser, setEmail, currentUser, userEmail, token, saveToken };
+  const updateLoginState = (status) => {
+    setLoginStatus(status);
+  };
+
+  const value = {
+    setUser,
+    setEmail,
+    currentUser,
+    userEmail,
+    token,
+    saveToken,
+    isLoggedIn,
+    updateLoginState,
+  };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

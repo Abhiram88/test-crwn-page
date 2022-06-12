@@ -4,12 +4,15 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import profile_pic from "../../assets/profile-pic.jpg";
 import "./user-profile.styles.scss";
+import Navigation from "../navigation/navigation.component";
 
 const UserProfile = () => {
   const { currentUser, userEmail } = useContext(UserContext);
   console.log(currentUser);
   return (
     <Fragment>
+      <Navigation />
+
       <div className="user-info">
         <img src={profile_pic} alt="profile_pic" />
         <div className="user-details">

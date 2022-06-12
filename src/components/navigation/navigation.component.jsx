@@ -1,10 +1,29 @@
 import { Button } from "react-bootstrap";
 import "./navigation.styles.scss";
-import { Link, Outlet, Navigate } from "react-router-dom";
+import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import logo from "../../assets/react.png";
+import { useContext, useState, useEffect } from "react";
+import {
+  UserContext,
+  setUser,
+  setEmail,
+  saveToken,
+  updateLoginState,
+  isLoggedIn,
+} from "../../contexts/user.context";
 
 const Navigation = () => {
+  const { updateLoginState, isLoggedIn } = useContext(UserContext);
+
+  let navigate = useNavigate();
+
+  const logOut = () => {
+    updateLoginState(false);
+    console.log("false");
+    navigate("/logon");
+  };
+
   return (
     <Fragment>
       <div className="container-main">
@@ -25,11 +44,17 @@ const Navigation = () => {
 
           <div className="user-specs">
             <div className="login-status">
-              <span>
-                <Link to="/logon">
+              {isLoggedIn ? (
+                <span>
+                  <Button variant="link" onClick={logOut}>
+                    Signout
+                  </Button>
+                </span>
+              ) : (
+                <span>
                   <Button variant="link">Login/SignUp</Button>
-                </Link>
-              </span>
+                </span>
+              )}
             </div>
           </div>
         </div>

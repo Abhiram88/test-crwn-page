@@ -5,17 +5,22 @@ import {
   setUser,
   setEmail,
   saveToken,
+  updateLoginState,
+  isLoggedIn,
 } from "../../contexts/user.context";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import "./authentication.styles.scss";
 
 const UserLogon = () => {
-  const { setUser, setEmail, saveToken } = useContext(UserContext);
+  const { setUser, setEmail, saveToken, updateLoginState } =
+    useContext(UserContext);
   const [emailAddr, setEmailAddr] = useState("");
   const [password, setPassword] = useState("");
 
+  let navigate = useNavigate();
   // useEffect(() => {
   //   console.log("token", token);
   // }, [token]);
@@ -49,6 +54,9 @@ const UserLogon = () => {
           saveToken(tokenData);
           setEmail(email);
           setUser(name);
+          updateLoginState(true);
+
+          navigate("/");
         } else {
           console.log("user auth error");
         }
