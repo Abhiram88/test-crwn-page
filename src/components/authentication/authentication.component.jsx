@@ -56,6 +56,9 @@ const UserLogon = () => {
           setUser(name);
           updateLoginState(true);
 
+          await axios
+          .get(`http://localhost:4000/getposts/${email}`)
+
           navigate("/");
         } else {
           console.log("user auth error");
