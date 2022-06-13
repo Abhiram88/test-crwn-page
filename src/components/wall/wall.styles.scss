@@ -1,0 +1,36 @@
+.container{
+    display: grid;
+    grid-template-columns: 2fr 7fr 2fr;
+    border: 1px dashed rebeccapurple;    
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    
+    .left-panel{
+        border: 1px dashed red;
+        margin: 0px 0px 0px 0px;
+    }
+
+    .middle-panel{
+        border: 1px dashed red;
+        margin: 0px 0px 0px 0px;
+
+        .add-post{
+
+            .post-area{
+                width: 60%;
+                margin-left: 50px;
+            }
+
+            .post-submit{
+                margin-top: 5px;
+                margin-left: 330px;
+                width: 22%;
+            }
+        }
+    }
+
+    .right-panel{
+        border: 1px dashed red;
+        width: 100%;
+    }
+}
