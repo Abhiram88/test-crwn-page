@@ -39,10 +39,11 @@ const UserLogon = () => {
     event.preventDefault();
     const baseURL = `http://localhost:4000/verify_user?email=${emailAddr}&password=${password}`;
 
+    console.log("hello");
     await axios
       .post(baseURL)
       .then((response) => {
-        //console.log("User verified");
+        console.log("User verified");
         if (response.data[2] === "verified") {
           console.log("user verified");
 
