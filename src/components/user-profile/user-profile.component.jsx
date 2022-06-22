@@ -8,7 +8,7 @@ import Navigation from "../navigation/navigation.component";
 
 const UserProfile = () => {
   const { currentUser, userEmail } = useContext(UserContext);
-  console.log(currentUser);
+  //console.log(currentUser);
   return (
     <Fragment>
       <Navigation />

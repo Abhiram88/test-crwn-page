@@ -1,36 +1,95 @@
 import React from "react";
 import { Fragment } from "react";
 import { useContext, useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Card, Button, InputGroup } from "react-bootstrap";
 import Navigation from "../navigation/navigation.component";
-import { Button } from "react-bootstrap";
-import './wall.styles.scss'
+import profile_pic from "../../assets/profile-pic.jpg";
+import {
+  UserContext,
+  currentUser,
+  userEmail,
+} from "../../contexts/user.context";
 
-const UserWall =()=>{
-    return(
-        <Fragment>
-            <Navigation />
-            <div className="container">
-                <div className="left-panel">
-                    left
-                </div>
-                <div className="middle-panel">
-                    <div className="add-post">
-                        <Form>
-                        <Form.Group className="mb-3 post-area" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label> <i>want to share...</i></Form.Label>
-                            <Form.Control as="textarea" rows={3} />
-                            <Button className="post-submit" variant="primary">Post</Button>
-                        </Form.Group>
-                        </Form>
-                    </div>
-                </div>
-                <div className="right-panel">
-                    right
-                </div>
+import "./wall.styles.scss";
+import axios from "axios";
+
+const UserWall = () => {
+  const { currentUser, userEmail } = useContext(UserContext);
+  const [posts, updatePost] = useState([]);
+  //console.log(currentUser);
+
+  var userid = "";
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/getPosts?email=${userEmail}`)
+      .then((response) => {
+        userid = response.data[0];
+        updatePost(response.data[1]);
+      });
+  }, [posts]);
+
+  return (
+    <Fragment>
+      <Navigation />
+      <div className="wall-container">
+        <div className="left-panel">left</div>
+        <div className="middle-panel">
+          <div className="add-post">
+            <Card className="new-post-card" style={{ width: "35rem" }}>
+              <div className="new-post">
+                <img className="profile-pic" src={profile_pic} />
+                <Form>
+                  <Form.Group
+                    className="mb-4 post-area"
+                    controlId="exampleForm.ControlTextarea1"
+                  >
+                    <Form.Control
+                      className="text-box"
+                      as="textarea"
+                      rows={2}
+                      placeholder={`What's on your mind ${currentUser}?`}
+                    />
+                  </Form.Group>
+                  <Button className="post-submit" variant="primary">
+                    Post
+                  </Button>
+                </Form>
+              </div>
+            </Card>
+          </div>
+          {posts.map((post) => (
+            <div className="display-posts">
+              <Card style={{ width: "35rem" }}>
+                <Card.Body>
+                  <Card.Title className="post-user">{currentUser}</Card.Title>
+                  <p className="post-time">June 14th at 6:01 AM</p>
+                  <Card.Text className="post">{post.post}</Card.Text>
+                  <div className="comment-section">
+                    <span>
+                      <img className="profile-pic" src={profile_pic} />
+                    </span>
+                    <span>
+                      <Form.Control
+                        className="user-comment"
+                        aria-label="comment section"
+                      />
+                    </span>
+                    <span>
+                      <Button variant="primary" className="share-post">
+                        share
+                      </Button>
+                    </span>
+                  </div>
+                </Card.Body>
+              </Card>
             </div>
-        </Fragment>
-    );
+          ))}
+        </div>
+        <div className="right-panel">right</div>
+      </div>
+    </Fragment>
+  );
 };
 
 export default UserWall;

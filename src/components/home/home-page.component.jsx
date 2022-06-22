@@ -7,7 +7,14 @@ const HomePage = () => {
     <div>
       <div className="container-home">
         <h2>Home Page</h2>
-        <Link to="/profile">Profile</Link>
+        <p>
+          {" "}
+          <Link to="/profile">Profile</Link>
+        </p>
+
+        <p>
+          <Link to="/wall">Wall</Link>
+        </p>
       </div>
     </div>
   );

@@ -14,9 +14,9 @@ export const UserProvider = ({ children }) => {
   const [isLoggedIn, setLoginStatus] = useState(false);
 
   useEffect(() => {
-    console.log("User", currentUser);
-    console.log("Email", userEmail);
-    console.log("token", token);
+    // console.log("User", currentUser);
+    // console.log("Email", userEmail);
+    // console.log("token", token);
   }, [currentUser, userEmail]);
 
   const setUser = (user) => {

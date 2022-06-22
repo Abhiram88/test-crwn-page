@@ -11,9 +11,9 @@ import { UserContext } from './contexts/user.context';
 
 const App = () => {
   const {token} = useContext(UserContext);
-  console.log(token);
+  //console.log(token);
 
-  if(token){
+  if(!token){
     return <UserLogon />
   }
 

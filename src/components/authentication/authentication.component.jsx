@@ -35,15 +35,13 @@ const UserLogon = () => {
     //console.log(password);
   };
 
-  const verifyUserHandler = async (event) => {
+  const verifyUserHandler = (event) => {
     event.preventDefault();
     const baseURL = `http://localhost:4000/verify_user?email=${emailAddr}&password=${password}`;
 
-    console.log("hello");
-    await axios
+    axios
       .post(baseURL)
       .then((response) => {
-        console.log("User verified");
         if (response.data[2] === "verified") {
           console.log("user verified");
 
@@ -57,10 +55,7 @@ const UserLogon = () => {
           setUser(name);
           updateLoginState(true);
 
-          await axios
-          .get(`http://localhost:4000/getposts/${email}`)
-
-          navigate("/");
+          navigate("/wall");
         } else {
           console.log("user auth error");
         }
