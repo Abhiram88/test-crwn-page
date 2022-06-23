@@ -1,7 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 import { useContext, useState, useEffect } from "react";
-import { Form, Card, Button, InputGroup } from "react-bootstrap";
+import { Form, Card, Button, InputGroup, Badge } from "react-bootstrap";
 import Navigation from "../navigation/navigation.component";
 import profile_pic from "../../assets/profile-pic.jpg";
 import {
@@ -16,6 +16,7 @@ import axios from "axios";
 const UserWall = () => {
   const { currentUser, userEmail } = useContext(UserContext);
   const [posts, updatePost] = useState([]);
+  const [friendRequests, updateFriendRequests] = useState(0);
   //console.log(currentUser);
 
   var userid = "";
@@ -27,7 +28,23 @@ const UserWall = () => {
         userid = response.data[0];
         updatePost(response.data[1]);
       });
+
   }, [posts]);
+
+  useEffect(()=>{
+    axios.get(`http://localhost:4000/getFriendRequests/${userEmail}`)
+    .then((response) => {
+      if(response){
+        console.log(response.data[1])
+        updateFriendRequests(response.data[1]);
+      }
+      else{
+        console.log("err")
+      }
+      
+      //updateFriendRequests(response)
+    }).catch((err)=>console.log(err.message))
+  }, [friendRequests])
 
   return (
     <Fragment>
@@ -59,7 +76,7 @@ const UserWall = () => {
             </Card>
           </div>
           {posts.map((post) => (
-            <div className="display-posts">
+            <div className="display-posts" key={post.postid}>
               <Card style={{ width: "35rem" }}>
                 <Card.Body>
                   <Card.Title className="post-user">{currentUser}</Card.Title>
@@ -86,7 +103,12 @@ const UserWall = () => {
             </div>
           ))}
         </div>
-        <div className="right-panel">right</div>
+        <div className="right-panel">
+        <Button variant="primary">
+          Friend requests <Badge bg="secondary">{friendRequests}</Badge>
+          <span className="visually-hidden">unread messages</span>
+        </Button>
+        </div>
       </div>
     </Fragment>
   );
