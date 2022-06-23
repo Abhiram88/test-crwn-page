@@ -17,34 +17,50 @@ const UserWall = () => {
   const { currentUser, userEmail } = useContext(UserContext);
   const [posts, updatePost] = useState([]);
   const [friendRequests, updateFriendRequests] = useState(0);
+  const [searchUsers, setSearchUsers] = useState([]);
+  //const [users, setUsers] = useState("");
   //console.log(currentUser);
+  //var searchUsers = [];
 
   var userid = "";
 
+  function getUsers(event) {
+    var values = event.target.value;
+    // setSearchUsers(values);
+    //console.log(values);
+    axios
+      .get(`http://localhost:4000/searchUserFunctionality/${values}`)
+      .then((response) => {
+        console.log(response.data);
+        setSearchUsers(response.data);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:4000/getPosts?email=${userEmail}`)
+  //     .then((response) => {
+  //       userid = response.data[0];
+  //       updatePost(response.data[1]);
+  //     });
+  // }, [posts]);
+
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getPosts?email=${userEmail}`)
+      .get(`http://localhost:4000/getFriendRequests/${userEmail}`)
       .then((response) => {
-        userid = response.data[0];
-        updatePost(response.data[1]);
-      });
+        if (response) {
+          console.log(response.data[1]);
+          updateFriendRequests(response.data[1]);
+        } else {
+          console.log("err");
+        }
 
-  }, [posts]);
-
-  useEffect(()=>{
-    axios.get(`http://localhost:4000/getFriendRequests/${userEmail}`)
-    .then((response) => {
-      if(response){
-        console.log(response.data[1])
-        updateFriendRequests(response.data[1]);
-      }
-      else{
-        console.log("err")
-      }
-      
-      //updateFriendRequests(response)
-    }).catch((err)=>console.log(err.message))
-  }, [friendRequests])
+        //updateFriendRequests(response)
+      })
+      .catch((err) => console.log(err.message));
+  }, [friendRequests]);
 
   return (
     <Fragment>
@@ -104,10 +120,21 @@ const UserWall = () => {
           ))}
         </div>
         <div className="right-panel">
-        <Button variant="primary">
-          Friend requests <Badge bg="secondary">{friendRequests}</Badge>
+          Friend requests{" "}
+          <Badge pill bg="primary">
+            {friendRequests}
+          </Badge>
           <span className="visually-hidden">unread messages</span>
-        </Button>
+          <div className="search-friends">
+            <input type="text" onChange={getUsers}></input>
+          </div>
+          <div className="displaySearchResults">
+            <ul>
+              {searchUsers.map((users) => (
+                <li>{users.email}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </Fragment>
