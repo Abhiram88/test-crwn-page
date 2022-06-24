@@ -9,6 +9,23 @@
     .left-panel{
         border: 1px dashed red;
         margin: 0px 0px 0px 0px;
+
+        .news-section{
+
+            .news-headlines {
+                font-size: 15px;                
+
+                a{
+                    text-decoration: none;
+                    color: black;
+                }
+                a:hover{
+                    color: #5EB9FF;
+                }
+            }
+
+        }
+        
     }
 
     .middle-panel{

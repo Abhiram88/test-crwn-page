@@ -12,17 +12,22 @@ import {
 
 import "./wall.styles.scss";
 import axios from "axios";
+import { format } from "date-fns";
+import moment, * as moments from "moment";
+import { Link } from "react-router-dom";
 
 const UserWall = () => {
+  var userid = "";
+
   const { currentUser, userEmail } = useContext(UserContext);
   const [posts, updatePost] = useState([]);
+  const [currentPost, setCurrentPost] = useState("");
   const [friendRequests, updateFriendRequests] = useState(0);
   const [searchUsers, setSearchUsers] = useState([]);
+  const [news, setNews] = useState([]);
   //const [users, setUsers] = useState("");
   //console.log(currentUser);
   //var searchUsers = [];
-
-  var userid = "";
 
   function getUsers(event) {
     var values = event.target.value;
@@ -37,14 +42,31 @@ const UserWall = () => {
       .catch((err) => console.log(err.message));
   }
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:4000/getPosts?email=${userEmail}`)
-  //     .then((response) => {
-  //       userid = response.data[0];
-  //       updatePost(response.data[1]);
-  //     });
-  // }, [posts]);
+  function submitPost() {
+    axios
+      .get(`http://localhost:4000//sharePost/${userid}/currentPost`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => console.log(err.message));
+  }
+
+  //console.log(searchUsers);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/getPosts?email=${userEmail}`)
+      .then((response) => {
+        userid = response.data[0];
+        updatePost(response.data[1]);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/getNewsHeadlines`).then((response) => {
+      setNews(response.data);
+    });
+  }, []);
 
   useEffect(() => {
     axios
@@ -66,7 +88,25 @@ const UserWall = () => {
     <Fragment>
       <Navigation />
       <div className="wall-container">
-        <div className="left-panel">left</div>
+        <div className="left-panel">
+          <h3>
+            <u>NEWS</u>
+          </h3>
+          <div className="news-section">
+            {Object.entries(news).map(([key, value]) => {
+              return (
+                <div className="news-headlines" key={key}>
+                  <a href={value} target="_blank">
+                    {key}
+                  </a>
+                  <br />
+                  <br></br>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="middle-panel">
           <div className="add-post">
             <Card className="new-post-card" style={{ width: "35rem" }}>
@@ -82,9 +122,14 @@ const UserWall = () => {
                       as="textarea"
                       rows={2}
                       placeholder={`What's on your mind ${currentUser}?`}
+                      onChange={(e) => setCurrentPost(e.target.value)}
                     />
                   </Form.Group>
-                  <Button className="post-submit" variant="primary">
+                  <Button
+                    className="post-submit"
+                    variant="primary"
+                    onClick={submitPost}
+                  >
                     Post
                   </Button>
                 </Form>
@@ -96,7 +141,7 @@ const UserWall = () => {
               <Card style={{ width: "35rem" }}>
                 <Card.Body>
                   <Card.Title className="post-user">{currentUser}</Card.Title>
-                  <p className="post-time">June 14th at 6:01 AM</p>
+                  <p className="post-time">{post.created_on}</p>
                   <Card.Text className="post">{post.post}</Card.Text>
                   <div className="comment-section">
                     <span>
