@@ -1,5 +1,5 @@
 import Navigation from "../navigation/navigation.component";
-import { Button, InputGroup, Form } from "react-bootstrap";
+import { Button, Form, Alert } from "react-bootstrap";
 import {
   UserContext,
   setUser,
@@ -13,12 +13,15 @@ import axios from "axios";
 import React from "react";
 import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import "./authentication.styles.scss";
+import Alerts from "../error-pages/error-messages";
+import UserWall from "../wall/wall.component";
 
 const UserLogon = () => {
   const { setUser, setEmail, saveToken, updateLoginState } =
     useContext(UserContext);
   const [emailAddr, setEmailAddr] = useState("");
   const [password, setPassword] = useState("");
+  const [errorStatus, setErrorStatus] = useState("");
 
   let navigate = useNavigate();
   // useEffect(() => {
@@ -57,16 +60,22 @@ const UserLogon = () => {
 
           navigate("/wall");
         } else {
-          console.log("user auth error");
+          setErrorStatus(response.data);
+          //console.log("user auth error");
         }
       })
       .catch((e) => {
-        console.log(e);
+        setErrorStatus(e.message);
       });
   };
 
   return (
     <div className="auth-container">
+      {errorStatus != "" ? (
+        <Alerts message={errorStatus} />
+      ) : (
+        console.log("no error")
+      )}
       <div className="auth-login">
         <div className="login-info">
           <Form>

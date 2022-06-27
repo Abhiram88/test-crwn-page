@@ -15,36 +15,43 @@ import axios from "axios";
 import { format } from "date-fns";
 import moment, * as moments from "moment";
 import { Link } from "react-router-dom";
+import Alerts from "../error-pages/error-messages";
 
 const UserWall = () => {
-  var userid = "";
-
   const { currentUser, userEmail } = useContext(UserContext);
   const [posts, updatePost] = useState([]);
   const [currentPost, setCurrentPost] = useState("");
   const [friendRequests, updateFriendRequests] = useState(0);
   const [searchUsers, setSearchUsers] = useState([]);
   const [news, setNews] = useState([]);
+  const [userid, setUserID] = useState("");
+
   //const [users, setUsers] = useState("");
   //console.log(currentUser);
   //var searchUsers = [];
 
   function getUsers(event) {
-    var values = event.target.value;
+    var searchParamaeter = event.target.value.toLocaleLowerCase();
     // setSearchUsers(values);
-    //console.log(values);
-    axios
-      .get(`http://localhost:4000/searchUserFunctionality/${values}`)
-      .then((response) => {
-        console.log(response.data);
-        setSearchUsers(response.data);
-      })
-      .catch((err) => console.log(err.message));
+    if (searchParamaeter == "") {
+      setSearchUsers([]);
+    } else {
+      axios
+        .get(
+          `http://localhost:4000/searchUserFunctionality/${searchParamaeter}`
+        )
+        .then((response) => {
+          setSearchUsers(response.data);
+        })
+        .catch((err) => console.log(err.message));
+    }
   }
 
   function submitPost() {
+    console.log(userid);
+    console.log("poist");
     axios
-      .get(`http://localhost:4000//sharePost/${userid}/currentPost`)
+      .post(`http://localhost:4000/sharePost/${userid}/${currentPost}`)
       .then((response) => {
         console.log(response);
       })
@@ -57,10 +64,13 @@ const UserWall = () => {
     axios
       .get(`http://localhost:4000/getPosts?email=${userEmail}`)
       .then((response) => {
-        userid = response.data[0];
+        setUserID(response.data[0]);
+        console.log("user", userid);
         updatePost(response.data[1]);
       });
   }, []);
+
+  console.log(news);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/getNewsHeadlines`).then((response) => {
@@ -78,7 +88,6 @@ const UserWall = () => {
         } else {
           console.log("err");
         }
-
         //updateFriendRequests(response)
       })
       .catch((err) => console.log(err.message));
@@ -87,6 +96,7 @@ const UserWall = () => {
   return (
     <Fragment>
       <Navigation />
+
       <div className="wall-container">
         <div className="left-panel">
           <h3>
@@ -154,7 +164,11 @@ const UserWall = () => {
                       />
                     </span>
                     <span>
-                      <Button variant="primary" className="share-post">
+                      <Button
+                        variant="primary"
+                        className="share-post"
+                        onClick={submitPost}
+                      >
                         share
                       </Button>
                     </span>
@@ -174,7 +188,7 @@ const UserWall = () => {
             <input type="text" onChange={getUsers}></input>
           </div>
           <div className="displaySearchResults">
-            <ul>
+            <ul className="searchResults">
               {searchUsers.map((users) => (
                 <li>{users.email}</li>
               ))}

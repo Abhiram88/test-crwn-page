@@ -1,19 +1,20 @@
 .wall-container{
     display: grid;
     grid-template-columns: 2fr 7fr 2fr;
-    border: 1px dashed rebeccapurple;    
+    //border: 1px dashed rebeccapurple;    
     margin: 0px 0px 0px 0px;
     width: 100%;
     background-color: #F0F2F5;
 
+
     .left-panel{
-        border: 1px dashed red;
+        //border: 1px dashed red;
         margin: 0px 0px 0px 0px;
 
         .news-section{
 
             .news-headlines {
-                font-size: 15px;                
+                font-size: 13px;                
 
                 a{
                     text-decoration: none;
@@ -29,7 +30,7 @@
     }
 
     .middle-panel{
-        border: 1px dashed red;
+        //border: 1px dashed red;
         margin: 0px 0px 0px 0px;
 
         .add-post{
@@ -119,7 +120,7 @@
     }
 
     .right-panel{
-        border: 1px dashed red;
+        //border: 1px dashed red;
         width: 100%;
     }
 }
