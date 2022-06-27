@@ -12,17 +12,55 @@ import {
   updateLoginState,
   isLoggedIn,
 } from "../../contexts/user.context";
+import { PeopleFill } from "react-bootstrap-icons";
+import axios from "axios";
+import { Badge } from "react-bootstrap";
 
 const Navigation = () => {
   const { updateLoginState, isLoggedIn } = useContext(UserContext);
+  const [searchUsers, setSearchUsers] = useState([]);
+  const [friendRequests, updateFriendRequests] = useState(0);
+  const { currentUser, userEmail } = useContext(UserContext);
 
   let navigate = useNavigate();
+
+  function getUsers(event) {
+    var searchParamaeter = event.target.value.toLocaleLowerCase();
+    // setSearchUsers(values);
+    if (searchParamaeter == "") {
+      setSearchUsers([]);
+    } else {
+      axios
+        .get(
+          `http://localhost:4000/searchUserFunctionality/${searchParamaeter}`
+        )
+        .then((response) => {
+          setSearchUsers(response.data);
+        })
+        .catch((err) => console.log(err.message));
+    }
+  }
 
   const logOut = () => {
     updateLoginState(false);
     console.log("false");
     navigate("/logon");
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/getFriendRequests/${userEmail}`)
+      .then((response) => {
+        if (response) {
+          console.log(response.data[1]);
+          updateFriendRequests(response.data[1]);
+        } else {
+          console.log("err");
+        }
+        //updateFriendRequests(response)
+      })
+      .catch((err) => console.log(err.message));
+  }, [friendRequests]);
 
   return (
     <Fragment>
@@ -38,7 +76,21 @@ const Navigation = () => {
 
           <div className="navigation-controller">
             <div className="navigation-dropdowns">
-              <h4>Navigation</h4>
+              <div>
+                <span>
+                  <h4>Navigation</h4>
+                </span>
+                <span className="friends-reminder">
+                  <div>
+                    <PeopleFill className="people-fill" />
+                    <span className="">
+                      <Badge pill bg="light" className="badges">
+                        <p className="badges-text"> {friendRequests} </p>
+                      </Badge>
+                    </span>
+                  </div>
+                </span>
+              </div>
             </div>
           </div>
 
