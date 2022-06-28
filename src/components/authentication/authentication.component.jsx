@@ -1,5 +1,5 @@
 import Navigation from "../navigation/navigation.component";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Button, Form, Alert, Modal } from "react-bootstrap";
 import {
   UserContext,
   setUser,
@@ -15,13 +15,20 @@ import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import "./authentication.styles.scss";
 import Alerts from "../error-pages/error-messages";
 import UserWall from "../wall/wall.component";
+//import SignupModal from "./sign-up.component";
 
 const UserLogon = () => {
   const { setUser, setEmail, saveToken, updateLoginState } =
     useContext(UserContext);
   const [emailAddr, setEmailAddr] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorStatus, setErrorStatus] = useState("");
+  const [signUpClicked, setSignUp] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   let navigate = useNavigate();
   // useEffect(() => {
@@ -76,6 +83,7 @@ const UserLogon = () => {
       ) : (
         console.log("no error")
       )}
+
       <div className="auth-login">
         <div className="login-info">
           <Form>
@@ -104,11 +112,12 @@ const UserLogon = () => {
             </Button>
             <div className="forgot-password">Forgotten password?</div>
             <hr className="divider"></hr>
+
             <Button
               className="new-account"
               variant="success"
-              type="submit"
-              onClick={verifyUserHandler}
+              type="button"
+              onClick={handleShow}
             >
               Create New Account
             </Button>
