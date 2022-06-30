@@ -5,10 +5,16 @@ import { Link } from "react-router-dom";
 import profile_pic from "../../assets/profile-pic.jpg";
 import "./user-profile.styles.scss";
 import Navigation from "../navigation/navigation.component";
+import { useSelector, useDispatch } from "react-redux";
+import {myName, myEmail} from "../../redux/features/user/userSlice"
 
 const UserProfile = () => {
-  const { currentUser, userEmail } = useContext(UserContext);
-  //console.log(currentUser);
+  //const { currentUser, userEmail } = useContext(UserContext);
+  
+  const userName = useSelector((state) => state.user.userName);
+  const userEmail = useSelector((state) => state.user.userEmail);
+  console.log(userName);
+  console.log(userEmail);
   return (
     <Fragment>
       <Navigation />
@@ -16,7 +22,7 @@ const UserProfile = () => {
       <div className="user-info">
         <img src={profile_pic} alt="profile_pic" />
         <div className="user-details">
-          <p className="name">{currentUser}</p>
+          <p className="name">{userName}</p>
           <p className="friends">{userEmail}</p>
         </div>
       </div>

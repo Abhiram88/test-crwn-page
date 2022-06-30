@@ -8,6 +8,7 @@ import {
   updateLoginState,
   isLoggedIn,
 } from "../../contexts/user.context";
+import {myName, myEmail} from "../../redux/features/user/userSlice";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
@@ -15,11 +16,16 @@ import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import "./authentication.styles.scss";
 import Alerts from "../error-pages/error-messages";
 import UserWall from "../wall/wall.component";
+import { useSelector, useDispatch } from "react-redux";
 //import SignupModal from "./sign-up.component";
 
 const UserLogon = () => {
   const { setUser, setEmail, saveToken, updateLoginState } =
     useContext(UserContext);
+
+  const dispatch = useDispatch();
+  
+
   const [emailAddr, setEmailAddr] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -64,6 +70,8 @@ const UserLogon = () => {
           setEmail(email);
           setUser(name);
           updateLoginState(true);
+          dispatch(myName(name));
+          dispatch(myEmail(email));
 
           navigate("/wall");
         } else {
