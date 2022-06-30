@@ -13,12 +13,7 @@ import LoginForm from "./login-form";
 const UserLogon = () => {
 
   const selector = useSelector((state) => state.user.errMessage);
-  const dispatch = useDispatch();
   
-  const [errorStatus, setErrorStatus] = useState("");
-  const [signUpClicked, setSignUp] = useState(false);
-  const [show, setShow] = useState(false);
-
   return (
     <div className="auth-container">
       {selector != "" && (
