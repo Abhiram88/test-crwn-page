@@ -5,6 +5,7 @@ import UserLogon from './components/authentication/authentication.component';
 import HomePage from './components/home/home-page.component';
 import UserWall from './components/wall/wall.component';
 import UserProfile from './components/user-profile/user-profile.component';
+import TestCSS from './components/authentication/test-ignore';
 import { useState, useContext } from 'react';
 //import logo from '../public/assets/Website-Background.jpg'
 import { UserContext } from './contexts/user.context';
@@ -22,7 +23,7 @@ const App = () => {
         <Route path='/' element={<HomePage />}/>
           <Route path='wall' element={<UserWall />} />
           <Route path='logon' element={<UserLogon />} />
-          <Route path='profile' element={<UserProfile />} />        
+          <Route path='profile' element={<UserProfile />} />   
       </Routes>
   )
 }

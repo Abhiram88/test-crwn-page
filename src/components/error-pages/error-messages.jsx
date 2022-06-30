@@ -3,13 +3,12 @@ import { Alert } from "react-bootstrap";
 import "./error-messages.styles.scss";
 
 const Alerts = ({ message = "error" }) => {
-  console.log("hello");
   return (
-    <Fragment>
-      <Alert variant="danger" className="error-message">
+    <div className="error-message">
+      <Alert variant="danger">
         {message}
       </Alert>
-    </Fragment>
+    </div>
   );
 };
 

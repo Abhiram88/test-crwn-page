@@ -86,10 +86,8 @@ const UserLogon = () => {
 
   return (
     <div className="auth-container">
-      {errorStatus != "" ? (
+      {errorStatus != "" && (
         <Alerts message={errorStatus} />
-      ) : (
-        console.log("no error")
       )}
 
       <div className="auth-login">
