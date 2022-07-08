@@ -8,6 +8,7 @@ import {
   UserContext,
   currentUser,
   userEmail,
+  myFriendRequests,
 } from "../../contexts/user.context";
 
 import "./wall.styles.scss";
@@ -18,14 +19,15 @@ import { Link } from "react-router-dom";
 import Alerts from "../error-pages/error-messages";
 
 const UserWall = () => {
-  const { currentUser, userEmail } = useContext(UserContext);
+  const { currentUser, userEmail, myFriendRequests } = useContext(UserContext);
   const [posts, updatePost] = useState([]);
   const [currentPost, setCurrentPost] = useState("");
-  const [friendRequests, updateFriendRequests] = useState(0);
+  const [friendRequestsCount, updateFriendRequestsCount] = useState(0);
   const [searchUsers, setSearchUsers] = useState([]);
   const [news, setNews] = useState([]);
   const [userid, setUserID] = useState("");
 
+  var friendRequests = [];
   //const [users, setUsers] = useState("");
   //console.log(currentUser);
   //var searchUsers = [];
@@ -48,8 +50,7 @@ const UserWall = () => {
   }
 
   function submitPost() {
-    console.log(userid);
-    console.log("poist");
+    //console.log(userid);
     axios
       .post(`http://localhost:4000/sharePost/${userid}/${currentPost}`)
       .then((response) => {
@@ -65,12 +66,12 @@ const UserWall = () => {
       .get(`http://localhost:4000/getPosts?email=${userEmail}`)
       .then((response) => {
         setUserID(response.data[0]);
-        console.log("user", userid);
+        //console.log("user", userid);
         updatePost(response.data[1]);
       });
   }, []);
 
-  console.log(news);
+  //console.log(news);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/getNewsHeadlines`).then((response) => {
@@ -79,19 +80,23 @@ const UserWall = () => {
   }, []);
 
   useEffect(() => {
+    console.log("blink")
     axios
       .get(`http://localhost:4000/getFriendRequests/${userEmail}`)
       .then((response) => {
         if (response) {
-          console.log(response.data[1]);
-          updateFriendRequests(response.data[1]);
+          updateFriendRequestsCount(response.data[1]);
+          response.data[0].map((friends) => {
+          friendRequests.push(friends)
+          })
         } else {
           console.log("err");
         }
-        //updateFriendRequests(response)
+        console.log("rrr",friendRequests)
+        myFriendRequests(friendRequests);
       })
       .catch((err) => console.log(err.message));
-  }, [friendRequests]);
+  }, [ friendRequestsCount ]);
 
   return (
     <Fragment>
@@ -181,7 +186,7 @@ const UserWall = () => {
         <div className="right-panel">
           Friend requests{" "}
           <Badge pill bg="primary">
-            {friendRequests}
+            {friendRequestsCount}
           </Badge>
           <span className="visually-hidden">unread messages</span>
           <div className="search-friends">

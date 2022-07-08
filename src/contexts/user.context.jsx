@@ -12,6 +12,8 @@ export const UserProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState(null);
   const [token, setToken] = useState("");
   const [isLoggedIn, setLoginStatus] = useState(false);
+  const [userFriends, setUserFriends] = useState([]);
+  var myFriends = [];
 
   useEffect(() => {
     // console.log("User", currentUser);
@@ -27,6 +29,14 @@ export const UserProvider = ({ children }) => {
   const saveToken = (tokenData) => {
     setToken(tokenData);
   };
+
+  const myFriendRequests = (friendReq) => {
+    friendReq.map((friend) => {
+      myFriends.push(friend)
+    });
+    setUserFriends(myFriends)
+    console.log(userFriends);
+  }
 
   const setEmail = (email) => {
     setUserEmail(email);
@@ -45,6 +55,9 @@ export const UserProvider = ({ children }) => {
     saveToken,
     isLoggedIn,
     updateLoginState,
+    myFriendRequests,
+    userFriends,
+    setUserFriends
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

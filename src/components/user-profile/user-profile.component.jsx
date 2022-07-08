@@ -13,8 +13,8 @@ const UserProfile = () => {
   
   const userName = useSelector((state) => state.user.userName);
   const userEmail = useSelector((state) => state.user.userEmail);
-  console.log(userName);
-  console.log(userEmail);
+  //console.log(userName);
+  //console.log(userEmail);
   return (
     <Fragment>
       <Navigation />

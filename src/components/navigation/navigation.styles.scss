@@ -45,6 +45,11 @@
                 .friends-reminder{
                     float: right;
 
+                    .friends-dropdown{
+                        position: absolute;
+                        z-index: 10;
+                    }
+
                     .people-fill{
                         width: 30px;
                         height: 30px;                        

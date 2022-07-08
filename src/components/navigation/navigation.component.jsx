@@ -4,6 +4,8 @@ import { Link, Outlet, Navigate, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import logo from "../../assets/react.png";
 import { useContext, useState, useEffect } from "react";
+import FriendsDropdown from "../wall/friends-dropdown";
+
 import {
   UserContext,
   setUser,
@@ -16,10 +18,12 @@ import { PeopleFill } from "react-bootstrap-icons";
 import axios from "axios";
 import { Badge } from "react-bootstrap";
 
+
 const Navigation = () => {
-  const { updateLoginState, isLoggedIn } = useContext(UserContext);
+  const { updateLoginState, isLoggedIn, userFriends } = useContext(UserContext);
   const [searchUsers, setSearchUsers] = useState([]);
   const [friendRequests, updateFriendRequests] = useState(0);
+  const [showFriends, setShowFriends] = useState(false);
   const { currentUser, userEmail } = useContext(UserContext);
 
   let navigate = useNavigate();
@@ -82,13 +86,22 @@ const Navigation = () => {
                 </span>
                 <span className="friends-reminder">
                   <div>
-                    <PeopleFill className="people-fill" />
+                    <PeopleFill className="people-fill" onClick={() => setShowFriends(!showFriends)}/>
                     <span className="">
                       <Badge pill bg="light" className="badges">
                         <p className="badges-text"> {friendRequests} </p>
                       </Badge>
                     </span>
-                  </div>
+                    {
+                      userFriends.map((friends) => {
+                        console.log(userFriends[0])
+                      })
+                      
+                    }
+                    {showFriends && (
+                      <FriendsDropdown />
+                    )}
+                   </div>
                 </span>
               </div>
             </div>
